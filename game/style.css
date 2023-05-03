@@ -1,0 +1,80 @@
+@font-face {
+    font-family:"Press Start 2P";
+    src: url("PressStart2P-Regular.ttf") format("truetype");
+}
+body{
+    overflow: hidden;
+}
+#stats{
+    position: absolute;
+    left:calc(50vw - 20vmin);
+    width:40vmin;
+    height:10vmin;
+    background-color: gray;
+    color:white;
+    border-style: ridge;
+    font-family:"Press Start 2P";
+}
+#Gotxt{
+    font-family: "Press Start 2P";
+    color:red;
+    text-align: center;
+    position: relative;
+    font-size: 3.5vmin;
+    width: 100%;
+}
+#GameOver{
+    visibility: hidden;
+    position: absolute;
+    background-color: grey;
+    width:40vmin;
+    height:50vmin;
+}
+#controls{
+    background-color: grey;
+    position: absolute;
+    box-sizing: border-box;
+    border: 0.1vmin solid black;
+    bottom:0;
+    opacity:0.5;
+    width:40vmin;
+    height:40vmin;
+}
+#canvas{
+    border: solid;
+    border-color: white;
+    box-sizing: border-box;
+    position: absolute;
+}
+.button{
+    position:absolute;
+    width:30%;
+    height:30%;
+    font-family: "Press Start 2P";
+    font-size: 4vmin;
+
+}
+.button:hover{
+    opacity:1;
+}
+.center{
+    width:105%;
+    text-align: center;
+}
+#up{
+    left:35%;
+}
+#down{
+    rotate:180deg;
+    left:35%;
+    bottom:0;
+}
+#left{
+    rotate:270deg;
+    top:35%;
+}
+#right{
+    rotate:90deg;
+    top:35%;
+    right:0;
+}

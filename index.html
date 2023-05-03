@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="front/style.css">
+    <title>Document</title>
+</head>
+<body>
+    <!-- loading screen-->
+
+    <div id="LoadScreen">
+        <div id="LoadTXT">LOADING</div>
+        <button id="procced" onclick="remove()">continue</button>
+    </div>
+    <script>
+        window.onload = ()=>{
+            let txt = document.getElementById("LoadTXT")
+            txt.style.color = "greenyellow"
+            txt.innerText = "LOADED"
+            document.getElementById("procced").style.visibility = "visible"
+        }
+        function remove(){
+            document.getElementById("LoadScreen").remove()
+            document.getElementById("outertitle").style.animation = ".5s linear leftToright"
+        }
+    </script>
+    <!-- it ends here -->
+    <!--              -->
+    <!-- img to simulate long load time -->
+    <img src="https://picsum.photos/300/300/?random" id="longLoadTimeThing">
+
+    <div id="outertitle">
+        <img src="front/star.png" id="Shootingstar">
+    </div>
+        <div id="innertitle">Asteroid Gunner</div>
+    <div id="center">
+        <a href="game/index.html">
+            <button class="select" id="Solo" onmouseover="hover('Solo')" onmouseleave="leave('Solo')">
+                <div class="btxt" id="Solotxt">Solo</div>
+            </button>
+        </a>
+        <button class="select" id="Multi" onmouseover="hover('Multi')" onmouseleave="leave('Multi')">
+            <div class="btxt" id="Multitxt">Multi</div>
+        </button>
+        <button class="select" id="Settings" onmouseover="hover('Settings')" onmouseleave="leave('Settings')">
+            <div class="btxt" id="Settingstxt">Settings</div>
+        </button>
+    </div>
+    <img id="neptune" src="front/planets/neptune.svg">
+    <img id="uranus" src="front/planets/uranus.svg">
+    <img id="saturn" src="front/planets/saturn.svg">
+    <img id="jupiter" src="front/planets/jupiter.svg">
+    <img id="mars" src="front/planets/mars.svg">
+    <img id="earth" src="front/planets/earth.svg">
+    <img id="venus" src="front/planets/venus.svg">
+    <img id="mercury" src="front/planets/mercury.svg">
+    <script>
+        //colors use later, ignore
+        //#878787
+        //#303030
+        function hover(id){
+            let el = document.getElementById(id+"txt")
+            el.innerText = `${id}<`
+        }
+        function leave(id){
+            let el = document.getElementById(id+"txt")
+            el.innerText = id
+        }
+
+        for(let i=0;i<100;i++){
+            let star = document.createElement("div")
+            star.id = "star" + i
+            star.style.width = "1vmin"
+            star.style.height = "1vmin"
+            star.style.backgroundColor = "white"
+            star.style.position = "absolute"
+            star.style.top = `${Math.random()*100}vh`
+            star.style.left = `${Math.random()*100}vw`
+            star.style.zIndex = "-4"
+            document.body.appendChild(star)
+        }
+        let timebefore = 0
+        let deltatime = 0
+        setInterval(()=>{
+            deltatime = (performance.now() - timebefore)/1000
+			timebefore = performance.now()
+            for(let i=0;i<100;i++){
+                let star = document.getElementById(`star${i}`)
+                star.style.left = (parseFloat(star.style.left)-(1*deltatime))+"vw"
+                if(parseFloat(star.style.left)<-1){
+                    star.style.left = `${parseFloat(star.style.left)+101}vw`
+                }
+            }
+        },0)
+    </script>
+</body>
+</html>
