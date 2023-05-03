@@ -22,7 +22,7 @@ function createRender(rendering,X,Y,angle,cor){
             temp.push({x:x,y:y})
         }
         if(rendering[i].rotate == true){
-            temp = shapes.RotatePolygon(temp,angle,cor)
+            temp = shapes.RotatePolygon(temp,angle-90,cor)
         }
         render.push({
             points:temp,
