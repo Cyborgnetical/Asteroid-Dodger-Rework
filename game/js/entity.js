@@ -12,7 +12,7 @@ const height = 720
  * @returns 
  */
 
-function createRender(rendering,X,Y,angle,cor,rotate = false){
+function createRender(rendering,X,Y,angle,cor){
     let render = []
     for(let i=0;i<rendering.length;i++){
         let temp = []
@@ -21,7 +21,7 @@ function createRender(rendering,X,Y,angle,cor,rotate = false){
             let y = rendering[i].points[o].y+Y
             temp.push({x:x,y:y})
         }
-        if(rotate){
+        if(rendering[i].rotate == true){
             temp = shapes.RotatePolygon(temp,angle,cor)
         }
         render.push({
@@ -54,7 +54,7 @@ class entity{
      * @param {Array<{x:number,y:number}>} points 
      * @param {string} color 
      */
-    constructor(type,speed,angle,points,color,rotate=false,cor=undefined){
+    constructor(type,speed,angle,points,color,cor=undefined){
         let rect = shapes.getRect(points)
         this.x = rect.x
         this.y = rect.y
@@ -63,13 +63,13 @@ class entity{
         this.type = type
         this.speed = speed
         this.points = points
-        this.rotate = rotate
         this.color = color
         this.angle = angle
         //center of rotation
-        this.cor =  {x:this.x+rect.width/2,y:this.y+rect.height/2}
         if(cor!=undefined){
             this.cor = cor
+        }else{
+            this.cor =  {x:this.x+rect.width/2,y:this.y+rect.height/2}
         }
         //center of rotation blueprint
         this.corBP = {x:this.cor.x-this.x,y:this.cor.y-this.y}
@@ -99,9 +99,6 @@ class entity{
                 color:color
             }
         ]
-        if(rotate){
-            this.rotateShape = ()=>{this.points = shapes.RotatePolygon(this.points,this.angle,this.cor)}
-        }
     }
     CreatePoints(){
         let points = []
@@ -121,26 +118,6 @@ class entity{
         this.cor = {x:pos.x+this.corBP.x,y:pos.y+this.corBP.y}
         
     }
-    /*createRender(){
-        let render = []
-        for(let i=0;i<this.rendering.length;i++){
-            let temp = []
-            for(let o=0;o<this.rendering[i].points.length;o++){
-                let x = this.rendering[i].points[o].x+this.x
-                let y = this.rendering[i].points[o].y+this.y
-                temp.push({x:x,y:y})
-            }
-            if(this.rotate){
-                temp = shapes.RotatePolygon(temp,this.angle,this.cor)
-            }
-            render.push({
-                points:temp,
-                color:this.rendering[i].color
-            })
-        }
-        this.render = render
-        
-    }*/
     /**
      * 
      * @param {number} deltatime 
@@ -151,7 +128,7 @@ class entity{
     update(deltatime){
         this.Move(deltatime)
         //this.createRender()
-        this.render = createRender(this.rendering,this.x,this.y,this.angle,this.rotate)
+        this.render = createRender(this.rendering,this.x,this.y,this.angle,this.cor)
         this.rotateShape()
         this.frame()
     }
@@ -168,18 +145,9 @@ const entities =  {
      */
     player:class extends entity{
         constructor(x,y,color){
-            super("player",0,0,shapes.createTriangle(x,y,80,80),color)
+            super("player",0,0,shapes.createTriangle(x,y,80,80),color,{x:x+20,y:y+40})
             this.ArrowPressed = [0,0]
             this.hp = 5
-            this.gun = {
-                x:x+40,
-                y:y+40,
-                rendering:[{
-                    points:shapes.createCircle(0,20,40,10),
-                    color:"white"
-                }],
-                render:{}
-            }
             this.rendering.push(
                 {
                 points:shapes.createRect(20,25,50,30),
