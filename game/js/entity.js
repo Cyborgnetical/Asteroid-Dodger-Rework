@@ -22,7 +22,7 @@ function createRender(rendering,X,Y,angle,cor){
             temp.push({x:x,y:y})
         }
         if(rendering[i].rotate == true){
-            temp = shapes.RotatePolygon(temp,angle-90,cor)
+            temp = shapes.RotatePolygon(temp,angle,cor)
         }
         render.push({
             points:temp,
@@ -150,7 +150,7 @@ const entities =  {
             this.hp = 5
             this.rendering.push(
                 {
-                points:shapes.createRect(20,25,50,30),
+                points:shapes.createRect(5,-10,30,40),
                 color:"grey",
                 rotate:true
                 }
@@ -171,7 +171,7 @@ const entities =  {
             )
             this.rendering.push(
                 {
-                points:shapes.createRect(20,30,50,20),
+                points:shapes.createRect(10,-10,20,60),
                 color:"white",
                 rotate:true
                 }

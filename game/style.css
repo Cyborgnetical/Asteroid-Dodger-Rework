@@ -14,6 +14,7 @@ body{
     color:white;
     border-style: ridge;
     font-family:"Press Start 2P";
+    opacity: 0.85;
 }
 #Gotxt{
     font-family: "Press Start 2P";
